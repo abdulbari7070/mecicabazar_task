@@ -31,7 +31,7 @@
     <tbody>
       <tr each={item in state.items}>
         <td>{ item.id }</td>
-        <td>{ item.title }</td>
+        <td>{ item.name }</td>
         <td>{ item.price }</td>
         <td>{ item.quantity }</td>
         <td class="text-center">
