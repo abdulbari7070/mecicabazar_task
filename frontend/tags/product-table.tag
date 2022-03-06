@@ -80,8 +80,27 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h3 class="modal-title" id="AddProductModalLabel">Add New Product</h3>
+          <h3 class="modal-title" id="AddProductModalLabel">Add New Product</h3>  
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form onsubmit={ add_product }>  
+            <div class="form-group">
+              <label for="product-name" class="col-form-label">Product Name:</label>
+              <input type="text" class="form-control" onkeyup={ edit_p_name } value={ state.p_name } >
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Price:</label>
+              <input type="number" class="form-control" onkeyup={ edit_p_price } value={ state.p_price } >
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Quanity:</label>
+              <input type="number" class="form-control" onkeyup={ edit_p_quantity } value={ state.p_quantity } >
+            </div>
+            <div class="mt-5 form-group">
+              <input type="submit" class="btn btn-outline-primary form-control" id="add-form-submit">
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -94,10 +113,56 @@
         // initial state
         this.state = {
           items: props.items,
+          p_name : '',
+          p_price : '',
+          p_quantity : ''
         }
+      },
+      edit_p_name(e){
+        this.update({
+          p_name : e.target.value
+        })
+      },
+      edit_p_price(e){
+        this.update({
+          p_price : e.target.value
+        })
+      },
+      edit_p_quantity(e){
+        this.update({
+          p_quantity : e.target.value
+        })
+      },
+      add_product(e) {
+        e.preventDefault()
+        if (this.state.p_name && this.state.p_price && this.state.p_quantity) {
+          const product = {
+              "name": this.state.p_name,
+              "quantity": parseInt(this.state.p_quantity),
+              "price": parseFloat(this.state.p_price)
+          }
+
+          axios.post('http://127.0.0.1:8000/api/v1/products/', product)
+            .then(response =>       
+                this.update({
+                    items : [
+                      {
+                        id : response.data.id,
+                        name : response.data.name,
+                        price : response.data.price,
+                        quantity : response.data.quantity,
+                        ...this.state.items
+                      }
+                    ],
+                    p_name : '',
+                    p_price : '',
+                    p_quantity : ''
+            })
+        )}
       }
     }
   </script>
+
 
 
 
