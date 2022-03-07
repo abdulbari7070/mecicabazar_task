@@ -34,7 +34,9 @@
         <td>{ item.quantity }</td>
         <td class="text-center">
           <a href='#' class=" m-2 btn btn-sm btn-outline-warning" data-bs-toggle="modal"
-            data-bs-target="#UpdateProductModal">
+            data-bs-target="#UpdateProductModal"
+            id = "link"
+            data-id="1" data-name="{item.name}">
             Edit
           </a>
           <a href='#' class="m-2 btn btn-sm btn-outline-danger" data-bs-toggle="modal"
@@ -46,8 +48,6 @@
     </tbody>
   </table>
 
-
-
   <div class="modal fade" id="UpdateProductModal" tabindex="-1" aria-labelledby="UpdateProductModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
@@ -56,12 +56,33 @@
           <h3 class="modal-title" id="UpdateProductModalLabel">Update Product</h3>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div class="modal-body">
+          <form onsubmit={ add_product }>
+            <div class="form-group">
+              <label for="product-id" class="col-form-label">Product Id : </label>
+            </div>
+            <div class="form-group">
+              <label for="product-name" class="col-form-label">Product Name:</label>
+              <input type="text" class="form-control" onkeyup={ edit_p_name } value={ state.p_name }>
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Price:</label>
+              <input type="number" class="form-control" onkeyup={ edit_p_price } value={ state.p_price }>
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Quanity:</label>
+              <input type="number" class="form-control" onkeyup={ edit_p_quantity } value={ state.p_quantity }>
+            </div>
+            <div class="mt-5 form-group">
+              <input type="submit" class="btn btn-outline-primary form-control" id="add-form-submit">
+            </div>
+        </div>
 
       </div>
     </div>
   </div>
 
-
+<!-- 
   <div class="modal fade" id="DeleteProductModal" tabindex="-1" aria-labelledby="DeleteProductModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
@@ -72,7 +93,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="modal fade" id="AddProductModal" tabindex="-1" aria-labelledby="AddProductModalLabel" aria-hidden="true">
     <div class="modal-dialog">
