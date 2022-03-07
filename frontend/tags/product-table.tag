@@ -79,7 +79,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h3 class="modal-title" id="AddProductModalLabel">Add New Product</h3>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" id="AddProductModalBtn" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form onsubmit={ add_product }>
@@ -156,7 +156,9 @@
                 p_price: '',
                 p_quantity: ''
               })
+              
             )
+            document.getElementById("AddProductModalBtn").click();
         }
       }
     }
