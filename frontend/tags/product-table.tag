@@ -1,7 +1,7 @@
 <product-table>
-  <br/>
+  <br />
   <h3>{ props.title }</h3>
-  <br/>
+  <br />
   <div class="row">
     <div class="col-8">
       <form onsubmit={ add }>
@@ -10,13 +10,11 @@
       </form>
     </div>
     <div class="col-2 offset-2">
-      <a href='#'
-        class=" m-2 btn btn-sm btn-outline-success"
-        data-bs-toggle="modal" data-bs-target="#AddProductModal">
+      <a href='#' class=" m-2 btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#AddProductModal">
         Add Product
       </a>
     </div>
-    
+
   </div>
   <table class="my-3 table table-striped table-bordered table-hover table-condensed">
     <thead>
@@ -35,37 +33,37 @@
         <td>{ item.price }</td>
         <td>{ item.quantity }</td>
         <td class="text-center">
-          <a href='#'
-              class=" m-2 btn btn-sm btn-outline-warning"
-              data-bs-toggle="modal" data-bs-target="#UpdateProductModal">
-              Edit
-            </a>
-            <a href='#'
-            class="m-2 btn btn-sm btn-outline-danger"
-            data-bs-toggle="modal" data-bs-target="#DeleteProductModal">
+          <a href='#' class=" m-2 btn btn-sm btn-outline-warning" data-bs-toggle="modal"
+            data-bs-target="#UpdateProductModal">
+            Edit
+          </a>
+          <a href='#' class="m-2 btn btn-sm btn-outline-danger" data-bs-toggle="modal"
+            data-bs-target="#DeleteProductModal">
             Delete
           </a>
         </td>
       </tr>
     </tbody>
   </table>
-  
-  
-  
-  <div class="modal fade" id="UpdateProductModal" tabindex="-1" aria-labelledby="UpdateProductModalLabel" aria-hidden="true">
+
+
+
+  <div class="modal fade" id="UpdateProductModal" tabindex="-1" aria-labelledby="UpdateProductModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h3 class="modal-title" id="UpdateProductModalLabel">Update Product</h3>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-    
+
       </div>
     </div>
   </div>
 
 
-  <div class="modal fade" id="DeleteProductModal" tabindex="-1" aria-labelledby="DeleteProductModalLabel" aria-hidden="true">
+  <div class="modal fade" id="DeleteProductModal" tabindex="-1" aria-labelledby="DeleteProductModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -80,85 +78,86 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h3 class="modal-title" id="AddProductModalLabel">Add New Product</h3>  
+          <h3 class="modal-title" id="AddProductModalLabel">Add New Product</h3>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form onsubmit={ add_product }>  
+          <form onsubmit={ add_product }>
             <div class="form-group">
               <label for="product-name" class="col-form-label">Product Name:</label>
-              <input type="text" class="form-control" onkeyup={ edit_p_name } value={ state.p_name } >
+              <input type="text" class="form-control" onkeyup={ edit_p_name } value={ state.p_name }>
             </div>
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Price:</label>
-              <input type="number" class="form-control" onkeyup={ edit_p_price } value={ state.p_price } >
+              <input type="number" class="form-control" onkeyup={ edit_p_price } value={ state.p_price }>
             </div>
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Quanity:</label>
-              <input type="number" class="form-control" onkeyup={ edit_p_quantity } value={ state.p_quantity } >
+              <input type="number" class="form-control" onkeyup={ edit_p_quantity } value={ state.p_quantity }>
             </div>
             <div class="mt-5 form-group">
               <input type="submit" class="btn btn-outline-primary form-control" id="add-form-submit">
             </div>
-          </div>
         </div>
       </div>
     </div>
   </div>
+  </div>
 
 
   <script>
-     export default {
+    export default {
       onBeforeMount(props, state) {
         // initial state
         this.state = {
           items: props.items,
-          p_name : '',
-          p_price : '',
-          p_quantity : ''
+          p_name: '',
+          p_price: '',
+          p_quantity: ''
         }
       },
-      edit_p_name(e){
+      edit_p_name(e) {
         this.update({
-          p_name : e.target.value
+          p_name: e.target.value
         })
       },
-      edit_p_price(e){
+      edit_p_price(e) {
         this.update({
-          p_price : e.target.value
+          p_price: e.target.value
         })
       },
-      edit_p_quantity(e){
+      edit_p_quantity(e) {
         this.update({
-          p_quantity : e.target.value
+          p_quantity: e.target.value
         })
       },
       add_product(e) {
         e.preventDefault()
         if (this.state.p_name && this.state.p_price && this.state.p_quantity) {
           const product = {
-              "name": this.state.p_name,
-              "quantity": parseInt(this.state.p_quantity),
-              "price": parseFloat(this.state.p_price)
+            "name": this.state.p_name,
+            "quantity": parseInt(this.state.p_quantity),
+            "price": parseFloat(this.state.p_price)
           }
 
           axios.post('http://127.0.0.1:8000/api/v1/products/', product)
-            .then(response =>       
-                this.update({
-                    items : [
-                      {
-                        id : response.data.id,
-                        name : response.data.name,
-                        price : response.data.price,
-                        quantity : response.data.quantity,
-                        ...this.state.items
-                      }
-                    ],
-                    p_name : '',
-                    p_price : '',
-                    p_quantity : ''
-            })
-        )}
+            .then(response =>
+              this.update({
+                items: [
+                  {
+                    id: response.data.id,
+                    name: response.data.name,
+                    price: response.data.price,
+                    quantity: response.data.quantity
+                  },
+                  ...this.state.items
+                ],
+                p_name: '',
+                p_price: '',
+                p_quantity: ''
+              })
+            )
+        }
       }
     }
   </script>
