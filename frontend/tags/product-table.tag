@@ -161,9 +161,4 @@
       }
     }
   </script>
-
-
-
-
-
 </product-table>
