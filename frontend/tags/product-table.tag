@@ -35,14 +35,14 @@
         <td class="text-center">
           <a href='#' class=" m-2 btn btn-sm btn-outline-warning" data-bs-toggle="modal"
             data-bs-target="#UpdateProductModal"
-            id = "link"
-            data-id="1" data-name="{item.name}">
+            id="edit_button"
+            >
             Edit
           </a>
-          <a href='#' class="m-2 btn btn-sm btn-outline-danger" data-bs-toggle="modal"
+          <!-- <a href='#' class="m-2 btn btn-sm btn-outline-danger" data-bs-toggle="modal"
             data-bs-target="#DeleteProductModal">
             Delete
-          </a>
+          </a> -->
         </td>
       </tr>
     </tbody>
@@ -74,16 +74,16 @@
               <input type="number" class="form-control" onkeyup={ edit_p_quantity } value={ state.p_quantity }>
             </div>
             <div class="mt-5 form-group">
-              <input type="submit" class="btn btn-outline-primary form-control" id="add-form-submit">
+              <input type="submit" class="btn btn-outline-primary form-control" id="update-form-submit">
             </div>
+          </form>
         </div>
-
       </div>
     </div>
   </div>
 
-<!-- 
-  <div class="modal fade" id="DeleteProductModal" tabindex="-1" aria-labelledby="DeleteProductModalLabel"
+
+  <!-- <div class="modal fade" id="DeleteProductModal" tabindex="-1" aria-labelledby="DeleteProductModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -125,7 +125,7 @@
   </div>
   </div>
 
-
+  
   <script>
     export default {
       onBeforeMount(props, state) {
@@ -134,7 +134,8 @@
           items: props.items,
           p_name: '',
           p_price: '',
-          p_quantity: ''
+          p_quantity: '',
+          edit_item : ''
         }
       },
       edit_p_name(e) {
@@ -181,7 +182,7 @@
             )
             document.getElementById("AddProductModalBtn").click();
         }
-      }
+      },
     }
   </script>
 </product-table>
