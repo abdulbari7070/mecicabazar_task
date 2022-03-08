@@ -4,8 +4,8 @@
   <br />
   <div class="row">
     <div class="col-8">
-      <form onsubmit={ add }>
-        <input onkeyup={ edit } />
+      <form onsubmit={ search }>
+        <input type="text" id="mySearch" onkeyup={ edit } />
         <button class="mx-2 btn btn-sm btn-outline-primary">Search</button>
       </form>
     </div>
@@ -183,6 +183,15 @@
             document.getElementById("AddProductModalBtn").click();
         }
       },
+      search(e) {
+        e.preventDefault()
+        const value = document.getElementById('mySearch').value;
+        axios.get('http://127.0.0.1:8000/api/v1/products', {params: {search: value}})
+        .then((response) => {
+          console.log(response.data);
+        });
+
+      }
     }
   </script>
 </product-table>

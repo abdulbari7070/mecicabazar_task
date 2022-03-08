@@ -1,9 +1,16 @@
 asgiref==3.5.0
 backports.zoneinfo==0.2.1
+certifi==2021.10.8
 Django==4.0.3
 django-cors-headers==3.11.0
+django-elasticsearch-dsl==7.2.2
 django-rest-framework==0.1.0
 djangorestframework==3.13.1
+elasticsearch==7.17.1
+elasticsearch-dsl==7.4.0
 pkg_resources==0.0.0
+python-dateutil==2.8.2
 pytz==2021.3
+six==1.16.0
 sqlparse==0.4.2
+urllib3==1.26.8
