@@ -35,8 +35,9 @@
         <td class="text-center">
           <a href='#' class=" m-2 btn btn-sm btn-outline-warning" data-bs-toggle="modal"
             data-bs-target="#UpdateProductModal"
-            id="edit_button"
-            >
+            onclick={ edit_item }
+            data-id={ item.id } 
+           >
             Edit
           </a>
           <!-- <a href='#' class="m-2 btn btn-sm btn-outline-danger" data-bs-toggle="modal"
@@ -59,7 +60,7 @@
         <div class="modal-body">
           <form onsubmit={ add_product }>
             <div class="form-group">
-              <label for="product-id" class="col-form-label">Product Id : </label>
+              <label for="product-id" class="col-form-label">Product Id : {item_id} </label>
             </div>
             <div class="form-group">
               <label for="product-name" class="col-form-label">Product Name:</label>
@@ -188,9 +189,17 @@
         const value = document.getElementById('mySearch').value;
         axios.get('http://127.0.0.1:8000/api/v1/products', {params: {search: value}})
         .then((response) => {
-          console.log(response.data);
+          this.update({
+            items: [
+              ...response.data 
+            ]
+          })
         });
 
+      },
+      edit_item(e) {
+        e.preventDefault()
+        console.log(e.target.dataset.id);
       }
     }
   </script>
