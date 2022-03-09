@@ -58,9 +58,9 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form onsubmit={ add_product }>
+          <form onsubmit={ update_product }>
             <div class="form-group">
-              <label for="product-id" class="col-form-label">Product Id : {item_id} </label>
+              <label for="product-id" class="col-form-label">Product Id : { state.p_id } </label>
             </div>
             <div class="form-group">
               <label for="product-name" class="col-form-label">Product Name:</label>
@@ -136,7 +136,7 @@
           p_name: '',
           p_price: '',
           p_quantity: '',
-          edit_item : ''
+          p_id : ''
         }
       },
       edit_p_name(e) {
@@ -199,7 +199,30 @@
       },
       edit_item(e) {
         e.preventDefault()
-        console.log(e.target.dataset.id);
+        const product_id = e.target.dataset.id;
+        axios.get('http://127.0.0.1:8000/api/v1/products/'+ product_id)
+        .then((response) => {
+          this.update({
+            p_id : response.data.id,
+            p_name : response.data.name,
+            p_price : response.data.price,
+            p_quantity : response.data.quantity  
+          })
+        });
+      },
+      update_product(e) {
+        e.preventDefault()
+        const product = {
+          "id" : parseInt(this.state.p_id),
+          "name": this.state.p_name,
+          "price": parseFloat(this.state.p_price),
+          "quantity": parseInt(this.state.p_quantity)
+        }
+        console.log(product);
+        axios.put('http://127.0.0.1:8000/api/v1/products/'+ product.id+"/", product)
+        .then((response) => {
+          console.log(response.data);
+        });
       }
     }
   </script>
