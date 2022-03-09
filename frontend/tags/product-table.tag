@@ -55,7 +55,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h3 class="modal-title" id="UpdateProductModalLabel">Update Product</h3>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" id="UpdateProductModalBtn" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form onsubmit={ update_product }>
@@ -221,7 +221,23 @@
         console.log(product);
         axios.put('http://127.0.0.1:8000/api/v1/products/'+ product.id+"/", product)
         .then((response) => {
-          console.log(response.data);
+          this.get_products(e)
+          document.getElementById("UpdateProductModalBtn").click();
+        });
+      },
+      get_products(e) {
+        e.preventDefault()
+        axios.get('http://127.0.0.1:8000/api/v1/products/')
+        .then((response) => {
+          this.update({
+            items: [
+              ...response.data
+            ],
+            p_id: '',
+            p_name: '',
+            p_price: '',
+            p_quantity: ''
+          })
         });
       }
     }
